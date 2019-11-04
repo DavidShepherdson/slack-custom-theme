@@ -1,8 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   const fs = require('fs');
-  const filePath = "SLACK_DARK_THEME_PATH";
-  const IS_DARK_KEY = "isDark";
+  const filePath = "SLACK_CUSTOM_THEME_PATH";
+  const IS_CUSTOM_THEME_KEY = "isCustomTheme";
 
   fs.readFile(filePath, {
     encoding: 'utf-8'
@@ -12,20 +12,20 @@ document.addEventListener('DOMContentLoaded', function() {
       const head = document.querySelector("head");
       styleEl.innerHTML = css;
 
-      if (localStorage.getItem(IS_DARK_KEY) === null) {
-        localStorage.setItem(IS_DARK_KEY, true);
+      if (localStorage.getItem(IS_CUSTOM_THEME_KEY) === null) {
+        localStorage.setItem(IS_CUSTOM_THEME_KEY, true);
         window.location.reload(true);
       }
 
-      if (JSON.parse(localStorage.getItem(IS_DARK_KEY))) {
+      if (JSON.parse(localStorage.getItem(IS_CUSTOM_THEME_KEY))) {
         head.append(styleEl);
       }
 
       document.addEventListener("keydown", (event) => {
         if (event.ctrlKey && event.keyCode === 76) {
-          const isDark = JSON.parse(localStorage.getItem(IS_DARK_KEY));
-          isDark ? head.removeChild(styleEl) : head.append(styleEl);
-          localStorage.setItem(IS_DARK_KEY, !isDark);
+          const isCustomTheme = JSON.parse(localStorage.getItem(IS_CUSTOM_THEME_KEY));
+          isCustomTheme ? head.removeChild(styleEl) : head.append(styleEl);
+          localStorage.setItem(IS_CUSTOM_THEME_KEY, !isCustomTheme);
         }
       });
     }
